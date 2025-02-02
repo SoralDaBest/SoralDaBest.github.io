@@ -1,4 +1,4 @@
-// Ensure Firebase is initialized
+// Ensure Firebase is initialized only once
 if (!firebase.apps.length) {
     firebase.initializeApp({
         apiKey: "AIzaSyD973DOB5cFx0ZiIjfQI8toUHHbaT70UeQ",
