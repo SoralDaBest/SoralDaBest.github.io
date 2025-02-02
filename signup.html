@@ -26,10 +26,24 @@
     </div>
 
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            if (!firebase.apps.length) {
+                firebase.initializeApp({
+                    apiKey: "AIzaSyD973DOB5cFx0ZiIjfQI8toUHHbaT70UeQ",
+                    authDomain: "soraldabest.firebaseapp.com",
+                    projectId: "soraldabest",
+                    storageBucket: "soraldabest.firebasestorage.app",
+                    messagingSenderId: "1046107389807",
+                    appId: "1:1046107389807:web:755e4724322ba618dcb29a",
+                    measurementId: "G-K6ZC913ET0"
+                });
+            }
+        });
+
         function signup() {
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
-            
+
             firebase.auth().createUserWithEmailAndPassword(email, password)
                 .then(() => {
                     window.location.href = "index.html";
