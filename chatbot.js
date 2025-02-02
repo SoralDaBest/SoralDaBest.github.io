@@ -1,62 +1,62 @@
-// Handle dropdown change event
-const modelSelector = document.getElementById('model-selector');
-let selectedModel = modelSelector.value;
+// Select the necessary DOM elements
+const chatbotBody = document.getElementById('chatbot-body');
+const chatbotInput = document.getElementById('chatbot-input');
+const sendButton = document.getElementById('send-btn');
 
-modelSelector.addEventListener('change', function() {
-    selectedModel = modelSelector.value;
-});
+// Define the bot's response behavior
+function botResponse(userMessage) {
+    let botMessage = '';
 
-// Simple chatbot interaction with custom responses
-document.getElementById('chatbot-input').addEventListener('keydown', function(event) {
-    if (event.key === 'Enter') {
-        const message = event.target.value.trim().toLowerCase();  // Normalize input
-        const chatbotBody = document.getElementById('chatbot-body');
+    if (userMessage.toLowerCase().includes('hi') || userMessage.toLowerCase().includes('hello')) {
+        botMessage = 'Hello! How can I assist you today?';
+    } else if (userMessage.toLowerCase().includes('how are you')) {
+        botMessage = 'I\'m doing great, thank you for asking!';
+    } else if (userMessage.toLowerCase().includes('chatgpt')) {
+        botMessage = 'I was built using a custom model, but thank you for thinking of ChatGPT!';
+    } else if (userMessage.toLowerCase().includes('bye')) {
+        botMessage = 'Goodbye! Have a great day!';
+    } else {
+        botMessage = 'I\'m not sure how to respond to that. Can you try asking something else?';
+    }
 
-        // Display user's message
-        const userMessage = document.createElement('p');
-        userMessage.textContent = `You: ${event.target.value}`;
-        chatbotBody.appendChild(userMessage);
+    return botMessage;
+}
 
-        let botResponseText = "I'm not sure what you mean. Could you rephrase that?";
+// Function to add a message to the chat window
+function addMessage(message, sender = 'bot') {
+    const messageElement = document.createElement('div');
+    messageElement.classList.add(sender === 'user' ? 'user-message' : 'bot-message');
+    messageElement.textContent = message;
 
-        // Handle responses based on selected model
-        if (selectedModel === 'default') {
-            // Default model responses
-            if (message === 'hi' || message === 'hello') {
-                botResponseText = "Hello! How can I assist you today?";
-            } else if (message === 'how are you') {
-                botResponseText = "I'm just a bot, but I'm doing great! How can I help you?";
-            } else if (message === 'bye') {
-                botResponseText = "Goodbye! Have a great day!";
-            } else if (message === 'help') {
-                botResponseText = "Sure! How can I assist you? You can ask about our services, pricing, or anything else.";
-            } else if (message === 'thanks' || message === 'thank you') {
-                botResponseText = "You're welcome! Let me know if you need anything else.";
-            } else if (message.includes('chatgpt') || message.includes('made with chatgpt')) {
-                botResponseText = "I am powered by AI, but I wasn't specifically built with ChatGPT. I do have some similar capabilities though!";
-            }
-        } else if (selectedModel === 'custom') {
-            // Custom AI model responses
-            if (message === 'hi' || message === 'hello') {
-                botResponseText = "Hello, welcome to the custom model! How can I help you today?";
-            } else if (message === 'how are you') {
-                botResponseText = "I'm doing great, powered by our custom AI model!";
-            } else if (message === 'bye') {
-                botResponseText = "Goodbye from the custom model! Take care!";
-            } else if (message === 'help') {
-                botResponseText = "This is a custom AI model! Let me know what you need assistance with.";
-            } else if (message.includes('chatgpt')) {
-                botResponseText = "This custom model is a unique AI, and not ChatGPT specifically, but both can assist you!";
-            }
-        }
+    chatbotBody.appendChild(messageElement);
 
-        // Display bot's response
-        const botResponse = document.createElement('p');
-        botResponse.textContent = `Bot: ${botResponseText}`;
-        chatbotBody.appendChild(botResponse);
+    // Scroll the chatbot body to the latest message
+    chatbotBody.scrollTop = chatbotBody.scrollHeight;
+}
 
-        // Clear input field
-        event.target.value = '';
-        chatbotBody.scrollTop = chatbotBody.scrollHeight;  // Scroll to the bottom
+// Function to handle sending the user's message
+function sendMessage() {
+    const userMessage = chatbotInput.value.trim();
+
+    if (userMessage) {
+        // Add user's message to the chat
+        addMessage(userMessage, 'user');
+        chatbotInput.value = ''; // Clear the input field
+
+        // Generate and add bot's response after a short delay (simulating typing)
+        setTimeout(() => {
+            const response = botResponse(userMessage);
+            addMessage(response, 'bot');
+        }, 1000);
+    }
+}
+
+// Event listener for the send button
+sendButton.addEventListener('click', sendMessage);
+
+// Event listener for the Enter key to send the message
+chatbotInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        sendMessage();
     }
 });
