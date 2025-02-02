@@ -38,24 +38,39 @@ window.logout = function() {
     });
 };
 
-// Simple chatbot interaction
+// Simple chatbot interaction with custom responses
 document.getElementById('chatbot-input').addEventListener('keydown', function(event) {
     if (event.key === 'Enter') {
-        const message = event.target.value;
+        const message = event.target.value.trim().toLowerCase();  // Normalize input
         const chatbotBody = document.getElementById('chatbot-body');
 
         // Display user's message
         const userMessage = document.createElement('p');
-        userMessage.textContent = `You: ${message}`;
+        userMessage.textContent = `You: ${event.target.value}`;
         chatbotBody.appendChild(userMessage);
 
-        // Simple bot response
+        let botResponseText = "I'm not sure what you mean. Could you rephrase that?";
+
+        // Simple keyword responses
+        if (message === 'hi' || message === 'hello') {
+            botResponseText = "Hello! How can I assist you today?";
+        } else if (message === 'how are you') {
+            botResponseText = "I'm just a bot, but I'm doing great! How can I help you?";
+        } else if (message === 'bye') {
+            botResponseText = "Goodbye! Have a great day!";
+        } else if (message === 'help') {
+            botResponseText = "Sure! How can I assist you? You can ask about our services, pricing, or anything else.";
+        } else if (message === 'thanks' || message === 'thank you') {
+            botResponseText = "You're welcome! Let me know if you need anything else.";
+        }
+
+        // Display bot's response
         const botResponse = document.createElement('p');
-        botResponse.textContent = `Bot: You said "${message}"! How can I help further?`;
+        botResponse.textContent = `Bot: ${botResponseText}`;
         chatbotBody.appendChild(botResponse);
 
         // Clear input field
         event.target.value = '';
-        chatbotBody.scrollTop = chatbotBody.scrollHeight;
+        chatbotBody.scrollTop = chatbotBody.scrollHeight;  // Scroll to the bottom
     }
 });
