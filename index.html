@@ -6,6 +6,8 @@
     <title>SoralDaBest</title>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <script src="auth.js" defer></script>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; }
         nav { background: #333; padding: 10px; }
@@ -25,37 +27,5 @@
         </span>
     </nav>
     <h1>Welcome to SoralDaBest</h1>
-    <script>
-        const firebaseConfig = {
-            apiKey: "AIzaSyD973DOB5cFx0ZiIjfQI8toUHHbaT70UeQ",
-            authDomain: "soraldabest.firebaseapp.com",
-            projectId: "soraldabest",
-            storageBucket: "soraldabest.firebasestorage.app",
-            messagingSenderId: "1046107389807",
-            appId: "1:1046107389807:web:755e4724322ba618dcb29a",
-            measurementId: "G-K6ZC913ET0"
-        };
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-
-        auth.onAuthStateChanged(user => {
-            if (user) {
-                document.getElementById("login-link").style.display = "none";
-                document.getElementById("signup-link").style.display = "none";
-                document.getElementById("user-info").style.display = "inline";
-                document.getElementById("user-greeting").innerText = `Hello, ${user.email}`;
-            } else {
-                document.getElementById("login-link").style.display = "inline";
-                document.getElementById("signup-link").style.display = "inline";
-                document.getElementById("user-info").style.display = "none";
-            }
-        });
-
-        function logout() {
-            auth.signOut().then(() => {
-                location.reload();
-            });
-        }
-    </script>
 </body>
 </html>
