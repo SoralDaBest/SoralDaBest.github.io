@@ -62,6 +62,8 @@ document.getElementById('chatbot-input').addEventListener('keydown', function(ev
             botResponseText = "Sure! How can I assist you? You can ask about our services, pricing, or anything else.";
         } else if (message === 'thanks' || message === 'thank you') {
             botResponseText = "You're welcome! Let me know if you need anything else.";
+        } else if (message.includes('chatgpt') || message.includes('made with chatgpt')) {
+            botResponseText = "I am powered by AI, but I wasn't specifically built with ChatGPT. I do have some similar capabilities though!";
         }
 
         // Display bot's response
