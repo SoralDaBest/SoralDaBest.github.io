@@ -6,13 +6,92 @@
     <title>Chatbot - SoralDaBest</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; }
-        nav { background: #333; padding: 10px; }
+        body { font-family: Arial, sans-serif; text-align: center; margin: 0; padding: 0; }
+        nav { background: #333; padding: 10px; color: white; }
         nav a { color: white; text-decoration: none; margin: 0 15px; }
         #user-info { display: none; color: white; }
-        select {
-            padding: 5px;
+
+        /* Chatbot Styling */
+        #chatbot-container {
+            width: 100%;
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #chatbot-body {
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        /* Chat bubbles */
+        .user-message, .bot-message {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 15px;
+            max-width: 80%;
+            display: inline-block;
+            clear: both;
+        }
+
+        .user-message {
+            background-color: #DCF8C6;
+            align-self: flex-end;
+        }
+
+        .bot-message {
+            background-color: #E4E6EB;
+            align-self: flex-start;
+        }
+
+        /* Input field */
+        #chatbot-input {
+            width: calc(100% - 40px);
+            padding: 10px;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+            outline: none;
+            font-size: 16px;
+        }
+
+        #chatbot-input:focus {
+            border-color: #3b7ddd;
+        }
+
+        /* Send button */
+        .send-btn {
+            background-color: #3b7ddd;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            cursor: pointer;
             margin-top: 10px;
+        }
+
+        .send-btn:hover {
+            background-color: #1e5fbd;
+        }
+
+        /* Scroll animation */
+        #chatbot-body {
+            transition: all 0.3s ease-in-out;
+        }
+
+        .chatbot-wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            height: 80vh;
+            padding: 20px;
         }
     </style>
 </head>
@@ -27,22 +106,18 @@
             <button onclick="logout()">Logout</button>
         </span>
     </nav>
+
     <h1>Welcome to SoralDaBest</h1>
 
-    <!-- Dropdown for model selection -->
-    <div>
-        <label for="model-selector">Choose a chatbot model:</label>
-        <select id="model-selector">
-            <option value="default">Default Model</option>
-            <option value="custom">Custom AI Model</option>
-        </select>
-    </div>
-
+    <!-- Chatbot container -->
     <div id="chatbot-container">
         <div id="chatbot-body"></div>
-        <input type="text" id="chatbot-input" placeholder="Type a message..." />
+        <div class="chatbot-wrapper">
+            <input type="text" id="chatbot-input" placeholder="Type a message..." />
+            <button class="send-btn" id="send-btn">Send</button>
+        </div>
     </div>
 
-    <script type="module" src="chatbot.js"></script> <!-- Link to the external chatbot.js -->
+    <script type="module" src="chatbot.js"></script> <!-- Link to external chatbot.js -->
 </body>
 </html>
