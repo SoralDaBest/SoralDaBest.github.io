@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
-    <script src="auth.js" defer></script>
+    
+    <!-- Firebase SDK (Older Version for Compatibility) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    
     <style>
         body { font-family: Arial, sans-serif; text-align: center; }
         .container { width: 300px; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; }
@@ -26,25 +28,27 @@
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            if (!firebase.apps.length) {
-                firebase.initializeApp({
-                    apiKey: "AIzaSyD973DOB5cFx0ZiIjfQI8toUHHbaT70UeQ",
-                    authDomain: "soraldabest.firebaseapp.com",
-                    projectId: "soraldabest",
-                    storageBucket: "soraldabest.firebasestorage.app",
-                    messagingSenderId: "1046107389807",
-                    appId: "1:1046107389807:web:755e4724322ba618dcb29a",
-                    measurementId: "G-K6ZC913ET0"
-                });
-            }
-        });
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyD973DOB5cFx0ZiIjfQI8toUHHbaT70UeQ",
+            authDomain: "soraldabest.firebaseapp.com",
+            projectId: "soraldabest",
+            storageBucket: "soraldabest.firebasestorage.app",
+            messagingSenderId: "1046107389807",
+            appId: "1:1046107389807:web:755e4724322ba618dcb29a",
+            measurementId: "G-K6ZC913ET0"
+        };
 
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        // Sign Up Function
         function signup() {
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
 
-            firebase.auth().createUserWithEmailAndPassword(email, password)
+            auth.createUserWithEmailAndPassword(email, password)
                 .then(() => {
                     window.location.href = "index.html";
                 })
