@@ -1,0 +1,144 @@
+/* Reset default margin and padding for all elements */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Global Link Styles */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Header styles */
+h1 {
+    font-size: 2.5em;
+    color: #333;
+}
+
+/* Navigation Bar */
+nav {
+    background-color: #333;
+    padding: 15px;
+    text-align: center;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 20px;
+    font-size: 1.1em;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* User Info */
+#user-info {
+    display: none;
+    color: white;
+}
+
+#user-info a {
+    color: white;
+    margin-left: 10px;
+}
+
+/* Hero Section */
+h1 {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 3em;
+}
+
+/* Main Content Area */
+main {
+    padding: 20px;
+    text-align: center;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+/* 404 Page Specific Styles */
+.container {
+    margin-top: 20px;
+}
+
+.container a {
+    font-size: 1.2em;
+    color: #007BFF;
+    transition: color 0.3s ease;
+}
+
+.container a:hover {
+    color: #0056b3;
+}
+
+/* Form Styles */
+form {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+form input,
+form button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"] {
+    font-size: 1em;
+}
+
+form button {
+    background-color: #007BFF;
+    color: white;
+    font-size: 1.1em;
+    cursor: pointer;
+    border: none;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    nav {
+        padding: 10px;
+    }
+
+    nav a {
+        font-size: 1em;
+        margin: 0 10px;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+}
