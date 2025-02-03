@@ -1,39 +1,42 @@
-document.getElementById('send-btn').addEventListener('click', function() {
-    let inputField = document.getElementById('chatbot-input');
-    let userMessage = inputField.value.trim();
-    let chatBody = document.getElementById('chatbot-body');
-    let typingIndicator = document.getElementById('chatbot-typing');
+document.addEventListener("DOMContentLoaded", function () {
+    const chatbotBody = document.getElementById("chatbot-body");
+    const inputField = document.getElementById("chatbot-input");
+    const sendBtn = document.getElementById("send-btn");
+    const typingIndicator = document.getElementById("typing-indicator");
 
-    if (userMessage !== "") {
-        // Display user's message
-        chatBody.innerHTML += `<div class="user-message">${userMessage}</div>`;
-        inputField.value = "";
-
-        // Show typing indicator
-        typingIndicator.style.display = "flex";
-        chatBody.scrollTop = chatBody.scrollHeight;
-
-        // Simulate bot response delay
-        setTimeout(() => {
-            typingIndicator.style.display = "none"; // Hide typing indicator
-            
-            // Example bot response (You can replace this with dynamic responses)
-            let botResponse = generateBotResponse(userMessage);
-            chatBody.innerHTML += `<div class="bot-message">${botResponse}</div>`;
-
-            chatBody.scrollTop = chatBody.scrollHeight;
-        }, 1500); // 1.5-second delay before response
+    function addMessage(text, sender) {
+        const message = document.createElement("div");
+        message.classList.add(sender === "user" ? "user-message" : "bot-message");
+        message.textContent = text;
+        chatbotBody.appendChild(message);
+        chatbotBody.scrollTop = chatbotBody.scrollHeight;
     }
+
+    function botResponse(userInput) {
+        typingIndicator.classList.remove("hidden");
+
+        setTimeout(() => {
+            typingIndicator.classList.add("hidden");
+
+            let response;
+            if (userInput.toLowerCase() === "hi") {
+                response = "Hello! How can I assist you today?";
+            } else if (userInput.toLowerCase().includes("chatgpt")) {
+                response = "Yes, I was created with ChatGPT! 😊";
+            } else {
+                response = "I'm still learning! Try asking something else.";
+            }
+
+            addMessage(response, "bot");
+        }, 2000);
+    }
+
+    sendBtn.addEventListener("click", () => {
+        const userInput = inputField.value.trim();
+        if (userInput !== "") {
+            addMessage(userInput, "user");
+            inputField.value = "";
+            botResponse(userInput);
+        }
+    });
 });
-
-// Simple function to return bot responses
-function generateBotResponse(userMessage) {
-    let responses = {
-        "hi": "Hello! How can I help you?",
-        "how are you": "I'm just a chatbot, but I'm doing great!",
-        "who made you": "I was created by the amazing team at SoralDaBest!",
-        "bye": "Goodbye! Have a great day!"
-    };
-
-    return responses[userMessage.toLowerCase()] || "I'm not sure how to respond to that.";
-}
