@@ -4,25 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chatbot</title>
-    <link rel="stylesheet" href="styles.css">  <!-- Main styles for navigation -->
-    <link rel="stylesheet" href="chatbot.css"> <!-- Chatbot-specific styles -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="chatbot.css">
 </head>
 <body>
     <nav>
         <a href="index.html">Home</a>
         <a href="login.html" id="login-link">Login</a>
         <a href="signup.html" id="signup-link">Sign Up</a>
-        <span id="user-info">
+        <span id="user-info" style="display: none;">
             <span id="user-greeting"></span>
             <a href="profile.html">Profile</a>
             <button onclick="logout()">Logout</button>
         </span>
     </nav>
 
-    <h1 style="text-align:center; padding-top: 30px;">Welcome to the Chatbot!</h1>
+    <h1 class="chatbot-title">Welcome to the Chatbot!</h1>
 
     <div id="chatbot-container">
-        <div id="chatbot-body" class="fade-in"></div>
+        <div id="chatbot-body"></div>
+        <div id="typing-indicator" class="typing hidden">
+            <span></span><span></span><span></span>
+        </div>
         <input type="text" id="chatbot-input" placeholder="Type a message..." />
         <button id="send-btn">Send</button>
     </div>
