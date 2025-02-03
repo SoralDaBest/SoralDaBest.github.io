@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fc;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navigation Bar Styling */
+        nav {
+            background-color: #2d3a4b;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 20px;
+            font-size: 16px;
+            text-transform: uppercase;
+        }
+
+        nav a:hover {
+            color: #7ec8d2;
+        }
+
+        #user-info {
+            display: inline;
+            color: white;
+            font-size: 16px;
+        }
+
+        #user-greeting {
+            margin-right: 10px;
+        }
+
+        /* Profile Section */
+        .profile-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-container h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2d3a4b;
+        }
+
+        .profile-info {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .profile-info label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .profile-info span {
+            color: #555;
+        }
+
+        /* Logout Button */
+        #logout-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #2d3a4b;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #logout-btn:hover {
+            background-color: #7ec8d2;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="chatbot.html">Chatbot</a>
+        <a href="login.html" id="login-link">Login</a>
+        <a href="signup.html" id="signup-link">Sign Up</a>
+        <span id="user-info">
+            <span id="user-greeting"></span>
+            <button id="logout-btn">Logout</button>
+        </span>
+    </nav>
+
+    <div class="profile-container">
+        <h2>Your Profile</h2>
+
+        <div class="profile-info">
+            <label for="email">Email:</label>
+            <span id="user-email">Loading...</span>
+        </div>
+        <div class="profile-info">
+            <label for="name">Name:</label>
+            <span id="user-name">Loading...</span>
+        </div>
+
+        <button id="logout-btn">Logout</button>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js';
+        import { getAuth, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyD973DOB5cFx0ZiIjfQI8toUHHbaT70UeQ",
+            authDomain: "soraldabest.firebaseapp.com",
+            projectId: "soraldabest",
+            storageBucket: "soraldabest.firebasestorage.app",
+            messagingSenderId: "1046107389807",
+            appId: "1:1046107389807:web:755e4724322ba618dcb29a",
+            measurementId: "G-K6ZC913ET0"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Listen for auth state changes
+        onAuthStateChanged(auth, user => {
+            if (user) {
+                document.getElementById("login-link").style.display = "none";
+                document.getElementById("signup-link").style.display = "none";
+                document.getElementById("user-info").style.display = "inline";
+                document.getElementById("user-greeting").innerText = `Hello, ${user.email}`;
+                document.getElementById("user-email").innerText = user.email;
+                document.getElementById("user-name").innerText = user.displayName || "No name set"; // Handle if displayName is not set
+            } else {
+                window.location.href = "login.html"; // Redirect to login if not authenticated
+            }
+        });
+
+        // Logout functionality
+        document.getElementById("logout-btn").addEventListener("click", () => {
+            signOut(auth).then(() => {
+                window.location.href = "login.html"; // Redirect after logging out
+            });
+        });
+    </script>
+</body>
+</html>
